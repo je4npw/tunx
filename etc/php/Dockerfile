@@ -29,13 +29,12 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Install extensions
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl gd
 
-# Copy existing application directory contents
+RUN chown www-data:www-data . /var/www/html
+
+VOLUME /var/www/html
+
 COPY ./web /var/www/html
 
-# Copy existing application directory permissions
-COPY --chown=www-data:www-data . /var/www/html
-
-# Change current user to www
 USER www-data
 
 # Expose port 9000 and start php-fpm server

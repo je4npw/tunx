@@ -10,18 +10,18 @@ help:
 	@echo "usage: make COMMAND"
 	@echo ""
 	@echo "Commands:"
-	@echo "  apidoc              Generate documentation of API"
-	@echo "  code-sniff          Check the API with PHP Code Sniffer (PSR2)"
-	@echo "  clean               Clean directories for reset"
-	@echo "  composer-up         Update PHP dependencies with composer"
-	@echo "  docker-start        Create and start containers"
-	@echo "  docker-stop         Stop and clear all services"
-	@echo "  gen-certs           Generate SSL certificates"
-	@echo "  logs                Follow log output"
-	@echo "  mysql-dump          Create backup of all databases"
-	@echo "  mysql-restore       Restore backup of all databases"
-	@echo "  phpmd               Analyse the API with PHP Mess Detector"
-	@echo "  test                Test application"
+	@echo "  apidoc              Gera documentação para API"
+	@echo "  code-sniff          Checa a API com PHP Code Sniffer (PSR2)"
+	@echo "  clean               Limpa e reseta diretórios do projeto"
+	@echo "  composer-up         Update dependências do PHP com composer"
+	@echo "  docker-start        Cria e inicia containers"
+	@echo "  docker-stop         Para e limpa todos os serviços"
+	@echo "  gen-certs           Gera certificados SSL"
+	@echo "  logs                Imprime os logs do projeto"
+	@echo "  mysql-dump          Cria backup das databases"
+	@echo "  mysql-restore       Reustaura backup das databases"
+	@echo "  phpmd               Analisa a API com PHP Mess Detector"
+	@echo "  test                Testa aplicação"
 
 init:
 	@$(shell cp -n $(shell pwd)/web/app/composer.json.dist $(shell pwd)/web/app/composer.json 2> /dev/null)
@@ -40,7 +40,7 @@ clean:
 	@rm -Rf etc/ssl/*
 
 code-sniff:
-	@echo "Checking the standard code..."
+	@echo "Checando o standard code..."
 	@docker-compose exec -T php ./app/vendor/bin/phpcs -v --standard=PSR2 app/src
 
 composer-up:
@@ -77,6 +77,6 @@ test: code-sniff
 	@make resetOwner
 
 resetOwner:
-	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd)/web/app" 2> /dev/null)
+	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd)/web" 2> /dev/null)
 
 .PHONY: clean test code-sniff init

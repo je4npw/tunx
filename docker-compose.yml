@@ -4,6 +4,9 @@ services:
         build:
             context: ./
             dockerfile: ./etc/php/Dockerfile
+            args:
+                - UID=${UID:-1000}
+                - GID=${GID:-1000}
         container_name: "php-fpm"
         restart: unless-stopped
         tty: true
