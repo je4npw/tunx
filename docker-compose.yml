@@ -11,7 +11,7 @@ services:
         volumes:
             - "./web:/var/www/html"
             - "./etc/php/php.ini:/usr/local/etc/php/php.ini"
-            - "./etc/ssh:/root/.ssh/config.d"
+            - "./etc/ssh:/home/www-data/.ssh/config.d"
     nginx:
         image: nginx:alpine
         container_name: "nginx"
