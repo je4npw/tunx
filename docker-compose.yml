@@ -4,9 +4,6 @@ services:
         build:
             context: ./
             dockerfile: ./etc/php/Dockerfile
-            args:
-                - UID=${UID:-1000}
-                - GID=${GID:-1000}
         container_name: "php-fpm"
         restart: unless-stopped
         tty: true
@@ -14,6 +11,7 @@ services:
         volumes:
             - "./web:/var/www/html"
             - "./etc/php/php.ini:/usr/local/etc/php/php.ini"
+            - "./etc/ssh:/root/.ssh/config.d"
     nginx:
         image: nginx:alpine
         container_name: "nginx"
