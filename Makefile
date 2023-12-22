@@ -22,6 +22,7 @@ help:
 	@echo "  mysql-restore       Reustaura backup das databases"
 	@echo "  phpmd               Analisa a API com PHP Mess Detector"
 	@echo "  test                Testa aplicação"
+	@echo "  clone               Clona o submódulo do TunX"
 
 init:
 	@$(shell cp -n $(shell pwd)/web/app/composer.json.dist $(shell pwd)/web/app/composer.json 2> /dev/null)
@@ -33,10 +34,7 @@ apidoc:
 clean:
 	@rm -Rf data/db/mysql/*
 	@rm -Rf $(MYSQL_DUMPS_DIR)/*
-	@rm -Rf web/app/vendor
-	@rm -Rf web/app/composer.lock
-	@rm -Rf web/app/doc
-	@rm -Rf web/app/report
+	@rm -Rf web/
 	@rm -Rf etc/ssl/*
 
 code-sniff:
@@ -78,5 +76,11 @@ test: code-sniff
 
 resetOwner:
 	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd)/web" 2> /dev/null)
+
+clone:
+	@chmod 600 $(shell pwd)/etc/php/github_rsa
+	@ssh-keyscan github.com >> $(shell pwd)/etc/php/github_rsa
+	@eval "$(ssh-agent -s)"
+	@git clone git@github.com:git-powerx/tunx.git $(shell pwd)/web
 
 .PHONY: clean test code-sniff init

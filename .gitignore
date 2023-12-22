@@ -1,13 +1,12 @@
 # Global
 .*.swp
 .DS_Store
+.env
 
 # Application
-web/app/composer.json
-web/app/composer.lock
-web/app/vendor/
-web/app/doc/
-web/app/report/
+web/composer.json
+web/composer.lock
+web/vendor/
 data/
 
 # PHPStorm
@@ -18,8 +17,8 @@ data/
 
 # SSL Certs
 etc/ssl/
-web/**
 
-
-.env
-/etc/ssh/
+#custom
+/etc/ssh/github_rsa
+/etc/php/github_rsa.pub
+/web/
